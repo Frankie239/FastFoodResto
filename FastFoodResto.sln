@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastFoodResto", "FastFoodRe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{BC69279F-3307-4C97-B6A7-92EACC182C83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelsTest", "ModelsTest\ModelsTest.csproj", "{3EFBEB93-339D-4F39-92DF-4D3202A99442}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "ModelsTest\UnitTest.csproj", "{3EFBEB93-339D-4F39-92DF-4D3202A99442}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

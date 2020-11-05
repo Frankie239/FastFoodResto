@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace Models
 {
+        
+
+                
     public enum eCategoria
     {
         Postre,
         Hamburguesa,
-        Pastas,
-        Carne,
         Cafeteria,
         Pasteleria,
-
-                
     }
+        
     public abstract class Producto : IMostrarDatos
     {
         public string nombre;
@@ -60,20 +60,25 @@ namespace Models
             this.peso = peso;
             this.categoria = categoria;
         }
+
+        //public abstract string MostrarDatos();
+
         /// <summary>
         /// Serializa la informacion del objeto para que luego se le agregue la info propietaria de cada objeto
         /// </summary>
         /// <returns></returns>
-        public string MostrarDatos()
+        public virtual string PrintDatos()
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("-------------------");
-
-            sb.AppendLine(nombre);
-            sb.AppendLine(Precio.ToString());
-            sb.AppendLine(categoria.ToString());
-
+            sb.AppendLine(string.Format(nombre+"----$"+Precio));
+            sb.Append(categoria.ToString());
             return sb.ToString();
         }
+
+
+
+
+
     }
 }

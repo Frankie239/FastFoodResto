@@ -36,5 +36,14 @@ namespace Models
             this.Sabor = sabor;
             
         }
+
+        public override string PrintDatos()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine(base.PrintDatos());
+            sb.AppendLine(Sabor.ToString());
+            return sb.ToString();
+        }
     }
 }
