@@ -7,14 +7,16 @@ using System.Threading.Tasks;
 namespace Models
 {
 
-    public enum eSabores 
+    public enum ESabores 
     {
         Crema,
         Chocolate,
         DDL,
         Combinado
     }
-    public class Helado : Producto
+
+    
+    public class ProdHeladeria : Producto
     {
 
         //public string nombre;
@@ -24,9 +26,9 @@ namespace Models
         //public double peso;
 
         //public eCategoria categoria;
-        public eSabores Sabor;
+        public ESabores Sabor;
 
-        public Helado(string nombre, string descripcion, double precio, double peso, eCategoria categoria, eSabores sabor) : base(nombre, descripcion, precio, peso, categoria)
+        public ProdHeladeria(string nombre, string descripcion, double precio, double peso, eCategoria categoria, ESabores sabor) : base(nombre, descripcion, precio, peso, categoria)
         {
             this.nombre = nombre;
             this.descripcion = descripcion;

@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Models;
+using Controllers;
 
 namespace ModelsTest
 {
@@ -13,7 +14,7 @@ namespace ModelsTest
         {
             //Arrange:
             //Act:
-            Helado helado = new Helado("McFlurry", "Helado el vasito", -1, 200, eCategoria.Postre, eSabores.Crema);
+            new ProdHeladeria("McFlurry", "Helado el vasito", -1, 200, eCategoria.Postre, ESabores.Crema);
         }
 
         /// <summary>
@@ -25,7 +26,7 @@ namespace ModelsTest
             //Arrange:
             double Expected = 1;
             //Act:
-            Helado helado = new Helado("McFlurry", "Helado el vasito", 1, 200, eCategoria.Postre, eSabores.Crema);
+            ProdHeladeria helado = new ProdHeladeria("McFlurry", "Helado el vasito", 1, 200, eCategoria.Postre, ESabores.Crema);
             //Assert: 
             Assert.AreEqual(Expected, helado.Precio);
         }
@@ -44,7 +45,7 @@ namespace ModelsTest
             
 
             //Act:
-            Helado Actual = new Helado("McFlurry", "Helado el vasito", 200, 200, eCategoria.Postre, eSabores.Crema);
+            ProdHeladeria Actual = new ProdHeladeria("McFlurry", "Helado el vasito", 200, 200, eCategoria.Postre, ESabores.Crema);
 
             //Assert: 
             Assert.AreEqual(ExNombre,Actual.nombre);
@@ -58,13 +59,60 @@ namespace ModelsTest
         public void Helado_eSabor_TodoOk()
         {
             //arrange:
-            eSabores ExSabor = eSabores.Chocolate;
+            ESabores ExSabor = ESabores.Chocolate;
 
             //Act:
-            Helado Actual = new Helado("McFlurry", "Helado el vasito", 200, 200, eCategoria.Postre, eSabores.Chocolate);
+            ProdHeladeria Actual = new ProdHeladeria("McFlurry", "Helado el vasito", 200, 200, eCategoria.Postre, ESabores.Chocolate);
 
             //Assert: 
             Assert.AreEqual(ExSabor, Actual.Sabor);
+        }
+
+        [TestMethod]
+
+        public void GetProducto_returns_bebida()
+        {
+            //Arrange: 
+            Bebida Expected = new Bebida("Nuka cola", "Radiactivamente deliciosa", 10, 250, eCategoria.Cafeteria, ETipo.NukaCola);
+            //Act: 
+            Bebida Actual = (Bebida)ProductosController.GetProducto("Nuka cola", Expected.GetType().Name.ToString());
+            //Assert:
+            Assert.AreEqual(Expected.nombre, Actual.nombre);
+        }
+
+
+        [TestMethod]
+        public void GetProducto_returns_anvorgesa()
+        {
+            //Arrange: 
+            ProdHamburgueseria Expected = new ProdHamburgueseria("Big mac", "Deliciosa", 150, 200, eCategoria.Hamburguesa, ECombo.Grande, (Bebida)Dummy.Bebidas[0]);
+            //Act: 
+            ProdHamburgueseria Actual = (ProdHamburgueseria)ProductosController.GetProducto("Big mac", Expected.GetType().Name.ToString());
+            //Assert:
+            Assert.AreEqual(Expected.nombre, Actual.nombre);
+        }
+
+
+        [TestMethod]
+        public void GetProducto_returns_cafe()
+        {
+            //Arrange: 
+            ProdCafeteria Expected = new ProdCafeteria("Cafe Descaf", "Negro", 50, 250, eCategoria.Cafeteria, EsubCategoria.Descafeinado);
+            //Act: 
+            ProdCafeteria Actual = (ProdCafeteria)ProductosController.GetProducto("Cafe Descaf", Expected.GetType().Name.ToString());
+            //Assert:
+            Assert.AreEqual(Expected.nombre, Actual.nombre);
+        }
+
+        [TestMethod]
+        public void GetProducto_returns_pasteleria()
+        {
+            //Arrange: 
+            ProdPasteleria Expected = new ProdPasteleria("Torta balcarce", "Recontra dulce", 300, 500, eCategoria.Pasteleria);
+            //Act: 
+            ProdPasteleria Actual = (ProdPasteleria)ProductosController.GetProducto("Torta balcarce", Expected.GetType().Name.ToString());
+            //Assert:
+            Assert.AreEqual(Expected.nombre, Actual.nombre);
         }
 
 

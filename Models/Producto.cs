@@ -18,7 +18,9 @@ namespace Models
     }
         
     public abstract class Producto : IMostrarDatos
+
     {
+        
         public string nombre;
 
         public string descripcion;
