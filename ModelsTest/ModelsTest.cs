@@ -82,7 +82,7 @@ namespace ModelsTest
 
 
         [TestMethod]
-        public void GetProducto_returns_anvorgesa()
+        public void GetProducto_returns_hamburguesa()
         {
             //Arrange: 
             ProdHamburgueseria Expected = new ProdHamburgueseria("Big mac", "Deliciosa", 150, 200, eCategoria.Hamburguesa, ECombo.Grande, (Bebida)Dummy.Bebidas[0]);
