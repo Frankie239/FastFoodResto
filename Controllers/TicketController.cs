@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Models;
 using System.IO;
+using System.Diagnostics;
+
 namespace Controllers
 {
     public static class TicketController<T> where T :IMostrarDatos
@@ -25,7 +27,12 @@ namespace Controllers
             }
 
             flag = CheckWriting(path);
-            return flag;
+            if (flag)
+            {
+                //Process.Start(path);
+                return flag;
+            }
+            else return false;
         }
 
         /// <summary>

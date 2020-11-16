@@ -115,14 +115,11 @@ namespace Controllers
         /// <param name="prod">The product with the new values</param>
         public static void UpdateProd(string name, Producto prod)
         {
-            if (ProductoExists(name))
-            {
-
-                DeleteProd(name, prod.GetType().Name.ToString());
-                AddProducto(prod);
+           
+            DeleteProd(name, prod.GetType().Name.ToString());
+            AddProducto(prod);
                
 
-            }
 
         }
    
@@ -134,22 +131,22 @@ namespace Controllers
         public static Producto GetProducto(string name,string Type)
         {
             
-            switch (Type)
+            switch (Type.ToUpper())
             {
-                case "Bebida":
+                case "BEBIDA":
                     return Dummy.Bebidas.Find(p => p.nombre.ToUpper() == name.ToUpper());
 
                     break;
 
-                case "ProdHamburgueseria":
+                case "PRODHAMBURGUESERIA":
                     return Dummy.Hamburguesas.Find(p => p.nombre.ToUpper() == name.ToUpper());
                     break;
 
-                case "ProdCafeteria":
+                case "PRODCAFETERIA":
                     return Dummy.Cafeteria.Find(p => p.nombre.ToUpper() == name.ToUpper());
                     break;
 
-                case "ProdPasteleria":
+                case "PRODPASTELERIA":
                     return Dummy.Pasteleria.Find(p => p.nombre.ToUpper() == name.ToUpper());
                     break;
             }

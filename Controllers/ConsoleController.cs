@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Models;
 
@@ -12,79 +13,172 @@ namespace Controllers
         public static string MenuPrincipal()
         {
             string presionada = "0";
-            Console.Write("1 Generar Pedido  2 Buscar producto  3 Agregar nuevo producto\n" +
-                "4 Modificar Producto   5 Eliminar producto  6 Facturacion \n 7 salir \n");
+           
 
             while(presionada.ToUpper() != "X")
             {
+                Console.Write("1 Generar Pedido  2 Buscar producto  3 Agregar nuevo producto\n" +
+               "4 Modificar Producto   5 Eliminar producto  6 Mostrar todos los prods \n 7 salir \n");
+
                 presionada = Console.ReadLine();
                 switch (presionada)
                 {
                     case "1":
-                        Pedido newPedido = new Pedido(1, Dummy.GetRandomName(), DateTime.Now.ToString());
+                        Pedido newPedido = new Pedido(1, Dummy.GetRandomClient(), DateTime.Now.ToString());
 
+                        Console.Clear();
 
+                        string desition = "";
 
-
-                        while (Console.ReadLine().ToUpper() != "X")
+                        while (desition != "X")
                         {
 
-                            Console.WriteLine("Seleccione Categoria, Ingrese X para generar el ticket");
-
+                            Console.WriteLine("Seleccione Categoria, Ingrese X para generar el ticket, intro para continuar");
+                            desition = Console.ReadLine();
                             eCategoria auxCategoria = eCategoria.Cafeteria;
-
-                            int selection = GetEnumInConsole<eCategoria>(auxCategoria);
-
-
-                            auxCategoria = (eCategoria)selection;
-                            string name = "";
-
-                            switch (auxCategoria)
+                            if(desition.ToUpper() == "X")
                             {
+                                DesserializarEnMasa(newPedido.products);
+                                Console.WriteLine("Confirmar pedido Y/N");
+                                string confirmacion = Console.ReadLine();
+                                if(confirmacion.ToUpper() == "Y")
+                                {
+                                    TicketController<Pedido>.PrintTicket(newPedido);
 
-                                case eCategoria.Cafeteria:
-                                    DesserializarEnMasa(Dummy.Cafeteria);
-                                    //Añado el producto a el pedido dependiendo del nombre445rrrrr (colaboracion de scon)fggggggggggggggggggggggggggrrrrrrrrr
-                                    name = Console.ReadLine();
-                                    newPedido.products.Add(Dummy.Cafeteria.Where(p => p.nombre.ToUpper() == name.ToUpper()).First());
-                                    break;
-                                case eCategoria.Hamburguesa:
-                                    DesserializarEnMasa(Dummy.Hamburguesas);
-                                    name = Console.ReadLine();
-                                    newPedido.products.Add(Dummy.Hamburguesas.Where(p => p.nombre.ToUpper() == name.ToUpper()).First());
-                                    break;
-                                case eCategoria.Pasteleria:
-                                    DesserializarEnMasa(Dummy.Pasteleria);
-                                    name = Console.ReadLine();
-                                    newPedido.products.Add(Dummy.Pasteleria.Where(p => p.nombre.ToUpper() == name.ToUpper()).First());
-                                    break;
-
+                                    PrintingAnimation();
+                                }
                             }
+                            else
+                            {
+                                int selection = GetEnumInConsole<eCategoria>(auxCategoria);
 
 
+                                auxCategoria = (eCategoria)selection;
+                                string name = "";
+
+                                //Hacer que si busca no tire exception
+                                switch (auxCategoria)
+                                {
+
+                                    case eCategoria.Cafeteria:
+                                        DesserializarEnMasa(Dummy.Cafeteria);
+                                        //Añado el producto a el pedido dependiendo del nombre445rrrrr (colaboracion de scon)fggggggggggggggggggggggggggrrrrrrrrr
+                                        name = Console.ReadLine();
+                                        if (!string.IsNullOrEmpty(name))
+                                            try
+                                            {
+                                                newPedido.products.Add(Dummy.Cafeteria.Where(p => p.nombre.ToUpper() == name.ToUpper()).First());
+                                            }
+                                            catch (InvalidOperationException e)
+                                            {
+                                                Console.WriteLine("No se encontro ese producto");
+                                                name = Console.ReadLine();
+                                                newPedido.products.Add(Dummy.Cafeteria.Where(p => p.nombre.ToUpper() == name.ToUpper()).First());
+                                            }
+
+                                        else
+                                            Console.WriteLine("Ingrese un nombre de producto");
+                                        break;
+                                    case eCategoria.Hamburguesa:
+                                        DesserializarEnMasa(Dummy.Hamburguesas);
+                                        name = Console.ReadLine();
+                                        if (name != "")
+                                            try
+                                            {
+                                                newPedido.products.Add(Dummy.Hamburguesas.Where(p => p.nombre.ToUpper() == name.ToUpper()).First());
+                                            }
+                                            catch(InvalidOperationException e)
+                                            {
+                                                Console.WriteLine("No se encontro ese producto");
+                                                name = Console.ReadLine();
+                                                newPedido.products.Add(Dummy.Hamburguesas.Where(p => p.nombre.ToUpper() == name.ToUpper()).First());
+                                            }
+                                           
+                                        break;
+                                    case eCategoria.Pasteleria:
+                                        DesserializarEnMasa(Dummy.Pasteleria);
+                                        name = Console.ReadLine();
+                                        if (name != "")
+                                            try
+                                            {
+                                                newPedido.products.Add(Dummy.Pasteleria.Where(p => p.nombre.ToUpper() == name.ToUpper()).First());
+                                            }
+                                            catch (InvalidOperationException e)
+                                            {
+                                                Console.WriteLine("No se encontro ese producto");
+                                                name = Console.ReadLine();
+                                                newPedido.products.Add(Dummy.Pasteleria.Where(p => p.nombre.ToUpper() == name.ToUpper()).First());
+                                            }
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+                            }
                         }
-
-                        TicketController<Pedido>.PrintTicket(newPedido);
-
-
-
                         break;
 
                     case "2":
-                        Console.WriteLine("Ingrese un nombre");
-                        presionada = Console.ReadLine();
-
-                        Console.WriteLine("Y una categoria: Bebida \n ProdHamburgueseria \n ProdCafeteria \n ProdPasteleria");
-                        string cat = Console.ReadLine();
-                        Deserializar(ProductosController.GetProducto(presionada, cat));
+                        FindProd();
                         break;
-
-
-
+                        
 
                     case "3":
-                        SerializeProd<Producto>();
+                        try
+                        {
+                            ProductosController.AddProducto(SerializeProd<Producto>());
+                        }
+                        catch(NullReferenceException e)
+                        {
+                            Console.WriteLine("Por favor ingrese datos validos");
+                        }
+
                         break;
+
+                    case "4":
+                        ShowAllProds();
+
+                        List<string> res = FindProd();
+
+                        ProductosController.UpdateProd(res[0], SerializeProd<Producto>());
+                        break;
+                    case "5":
+                        Console.Clear();
+                        ShowAllProds();
+                        List<string> response = FindProd();
+                        ProductosController.DeleteProd(response[0], response[1]);
+                        break;
+
+                    case "6":
+                        Console.Clear();
+                        ShowAllProds();
+                        Console.ReadKey();
+                        Console.Clear();
+                        break;
+
+                    case "7":
+                        Environment.Exit(0);
+                        break;
+
+
+
+
+
+
+
+                            
+
+                            
+
+
+                       
+
+                        
+
+
+
+
+
 
 
                 }
@@ -93,6 +187,36 @@ namespace Controllers
 
             
             return presionada;
+        }
+
+        private static List<string> FindProd()
+        {
+            List<string> res = new List<string>();
+            Console.WriteLine("Ingrese un nombre");
+            string presionada = Console.ReadLine();
+            res.Add(presionada);
+            Console.WriteLine("Y una categoria: \n Bebida \n ProdHamburgueseria \n ProdCafeteria \n ProdPasteleria");
+            string cat = Console.ReadLine();
+            res.Add(cat);
+            Deserializar(ProductosController.GetProducto(presionada, cat));
+            return res;
+        }
+            
+        
+        private static void PrintingAnimation()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("Imprimiendo");
+            for (int i = 0; i < 10; i++)
+            {
+                Thread.Sleep(100);
+                Console.Write(".");
+            }
+            Console.WriteLine();
+            Console.WriteLine("Ticket impreso");
+            Thread.Sleep(200);
+            
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         /// <summary>
@@ -108,7 +232,7 @@ namespace Controllers
             mySb.Append(string.Format("{0, -14}  | ", "Categoria: "));
             mySb.Append(string.Format("{0, -20}  | ", "Desc: "));
             mySb.Append(string.Format("{0, -6}| ", "Precio: "));
-            mySb.Append(string.Format("{0, -61} | ", "Peso: "));
+            mySb.Append(string.Format("{0, -6} | ", "Peso: "));
 
 
             Console.WriteLine(mySb.ToString());
@@ -149,7 +273,6 @@ namespace Controllers
         /// <param name="devueltos"></param>
         private static void DesserializarEnMasa(List<Producto> devueltos)
         {
-
             Headers();
 
             foreach (Producto prod in devueltos)
@@ -165,7 +288,7 @@ namespace Controllers
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns>the product in his child class</returns>
-        public  static void SerializeProd<T>() where T : Producto
+        public  static Producto SerializeProd<T>() where T : Producto
         {
             //List<T> data = new List<T>();
 
@@ -183,6 +306,8 @@ namespace Controllers
 
 
 
+            Console.WriteLine("Seleccione una categoria");
+
             eCategoria auxCategoria = eCategoria.Cafeteria;
 
             int selection = GetEnumInConsole<eCategoria>(auxCategoria);
@@ -197,6 +322,7 @@ namespace Controllers
                 case eCategoria.Hamburguesa:
 
                     //Ask if wants it in combo
+                    Console.WriteLine("Combo");
                     ECombo combo = ECombo.Sin_Combo;
                     selection = GetEnumInConsole<ECombo>(combo);
                     combo = (ECombo)selection;
@@ -212,7 +338,8 @@ namespace Controllers
                         Bebida comboDrink = (Bebida)Dummy.Bebidas.Where(b => b.nombre.ToUpper() == desition.ToUpper()).FirstOrDefault();
 
                         ProdHamburgueseria toAdd = new ProdHamburgueseria(name, desc, price, weight, eCategoria.Hamburguesa, combo, comboDrink);
-                        //return toAdd;
+                        //ProductosController.AddProducto(toAdd);
+                        return toAdd;
 
                     }
                     else
@@ -220,8 +347,12 @@ namespace Controllers
 
                         Bebida comboDrink = (Bebida)Dummy.Bebidas.First(b => b.nombre.ToUpper() == "SIN BEBIDA");
                         ProdHamburgueseria toAdd = new ProdHamburgueseria(name, desc, price, weight, eCategoria.Hamburguesa, combo, comboDrink);
-                        //return toAdd;
+                        //ProductosController.AddProducto(toAdd);
+                        return toAdd;
                     }
+
+
+                    
                     break;
 
 
@@ -239,12 +370,15 @@ namespace Controllers
 
                     ProdCafeteria toAddCaf = new ProdCafeteria(name, desc, price, weight, auxCategoria, subCat);
 
-                    //return toAddCaf;
+                    //ProductosController.AddProducto(toAddCaf);
+
+                    return toAddCaf;
                     break;
                 
                 case eCategoria.Pasteleria:
                     ProdPasteleria toAddPast = new ProdPasteleria(name, desc, price, weight, auxCategoria);
-                    //return toAddPast;
+                    //ProductosController.AddProducto(toAddPast);
+                    return toAddPast;
                     break;
 
                 case eCategoria.Postre:
@@ -254,12 +388,17 @@ namespace Controllers
                     flavor = (ESabores)selection;
 
                     ProdHeladeria toAddHel = new ProdHeladeria(name, desc, price, weight, auxCategoria, flavor);
-                    //return toAddHel;
+                    //ProductosController.AddProducto(toAddHel);
+                    return toAddHel;
+                    break;
+
+                default:
+                    return null;
                     break;
 
 
             }
-            //return null;
+            
            
             
         }
@@ -274,28 +413,51 @@ namespace Controllers
         private static int GetEnumInConsole<T>(T enumerator) where T:Enum
         {
 
+            Console.Clear();
             //Extracting the type of the enumerator that comes into the param
             Type enumType = enumerator.GetType();
 
             //Extracting the values of the enum and putting them into a var
-            var cat = Enum.GetValues(enumerator.GetType());
+            var cats = Enum.GetValues(enumerator.GetType());
 
             //Initializing a index, just for visualization purposes
             byte index = 0;
             //Start iterating through the var
-            foreach (var auxCat in cat)
+            foreach (var cat in cats)
             {
                 //Write each one of the enum elements
-                Console.WriteLine(index.ToString()+"-" + auxCat.ToString());
+                Console.WriteLine(index.ToString()+"-" + cat.ToString());
                 index++;
 
             }
-
+            int EnumSelection = 0;
             //Get the input from the user
-            int EnumSelection = int.Parse(Console.ReadLine());
+            try
+            {
+                EnumSelection  = int.Parse(Console.ReadLine());
+            }
+            catch(System.FormatException e)
+            {
+                Console.WriteLine("Ingrese un numero dentro de los mostrados");
+                EnumSelection = int.Parse(Console.ReadLine());
+            }
+            
 
             return EnumSelection;
 
         }
+
+
+        private static void ShowAllProds()
+        {
+            DesserializarEnMasa(Dummy.Bebidas);
+            DesserializarEnMasa(Dummy.Cafeteria);
+            DesserializarEnMasa(Dummy.Hamburguesas);
+            DesserializarEnMasa(Dummy.Pasteleria);
+
+        }
+
+
+        
     }
 }

@@ -46,6 +46,8 @@ namespace Models
                 }
             }
         }
+       string mivariable { set; get; }
+
 
 
         public double peso;

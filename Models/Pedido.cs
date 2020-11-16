@@ -8,20 +8,22 @@ using System.Threading.Tasks;
 namespace Models
 
 {
-    enum EPayingMethod
+    public enum EPayingMethod
     {
         Efectivo,
-        Debito
+        Debito,
+        Credito
+
     }
     public class Pedido : IMostrarDatos
     {
         public int id;
-        public string client;
+        public Cliente client;
 
         public string date;
         private double facturacion;
 
-        EPayingMethod Pay { set; get; } 
+        //EPayingMethod Pay { set; get; } 
 
       
 
@@ -38,7 +40,7 @@ namespace Models
 
         public List<Producto> products = new List<Producto>();
 
-        public Pedido(int id, string client, string date)
+        public Pedido(int id, Cliente client, string date)
         {
             this.id = id;
             this.client = client;
@@ -51,7 +53,7 @@ namespace Models
 
             sb.AppendLine(string.Format("** Pedido N° " + id + " **"));
             sb.AppendLine("** " + date + " **");
-            sb.AppendLine(string.Format("** Cliente: " + client + " **"));
+            sb.AppendLine(client.PrintDatos());
 
             foreach (Producto prod in products)
             {
@@ -60,7 +62,10 @@ namespace Models
 
             sb.AppendLine("Total-----------$" + calcFacturacion().ToString());
 
-            sb.AppendLine("** Medio de pago: " + Pay.ToString()+" **");
+            sb.AppendLine("** Medio de pago: " + client.Pay.ToString() +" **");
+
+            //To add feature:
+            //sb.AppendLine(comment)
 
             sb.AppendLine("**************FIN DEL PEDIDO**************");
 
