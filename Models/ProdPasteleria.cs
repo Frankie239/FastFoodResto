@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace Models
 {
@@ -10,7 +6,6 @@ namespace Models
     {
         public ProdPasteleria(string nombre, string descripcion, double precio, double peso, eCategoria categoria) : base(nombre, descripcion, precio, peso, categoria)
         {
-
             this.nombre = nombre;
             this.descripcion = descripcion;
             this.Precio = precio;

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Models
 {
@@ -21,16 +18,7 @@ namespace Models
 
         ECombo Combo;
         Bebida bebida;
-        //public Hamburguesa(string nombre, string descripcion, double precio, double peso, eCategoria categoria,ECombo combo) : base(nombre, descripcion, precio, peso, categoria)
-        //{
-        //    this.nombre = nombre;
-        //    this.descripcion = descripcion;
-        //    this.Precio = precio;
-        //    this.peso = peso;
-        //    this.categoria = categoria;
-        //    this.Combo = combo;
-        //}
-
+        
         public ProdHamburgueseria(string nombre, string descripcion, double precio, double peso, eCategoria categoria, ECombo combo,Bebida bebida) : base(nombre, descripcion, precio, peso, categoria)
         {
             this.nombre = nombre;
@@ -51,7 +39,6 @@ namespace Models
             if(Combo.ToString() != ECombo.Sin_Combo.ToString())
             {
                 sb.AppendLine(String.Format(Combo.ToString()+" "+bebida.PrintDatos()));
-                
             }
             else
             {

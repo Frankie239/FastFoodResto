@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Models
 {
-        
-
-                
     public enum eCategoria
     {
         Postre,
@@ -18,13 +12,9 @@ namespace Models
     }
         
     public abstract class Producto : IMostrarDatos
-
     {
-        
         public string nombre;
-
         public string descripcion;
-
         private double _precio;
 
         /// <summary>
@@ -46,15 +36,9 @@ namespace Models
                 }
             }
         }
-       string mivariable { set; get; }
-
-
 
         public double peso;
-
         public eCategoria categoria;
-
-       
 
         protected Producto(string nombre, string descripcion, double precio, double peso, eCategoria categoria)
         {
@@ -64,8 +48,6 @@ namespace Models
             this.peso = peso;
             this.categoria = categoria;
         }
-
-        //public abstract string MostrarDatos();
 
         /// <summary>
         /// Serializa la informacion del objeto para que luego se le agregue la info propietaria de cada objeto
@@ -79,10 +61,5 @@ namespace Models
             sb.Append(categoria.ToString());
             return sb.ToString();
         }
-
-
-
-
-
     }
 }

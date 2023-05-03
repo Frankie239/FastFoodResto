@@ -26,16 +26,10 @@ namespace Models
        
         public override string PrintDatos()
         {
-            
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(string.Format(Tipo.ToString() +" "+ peso+"ml"));
 
             return sb.ToString();
         }
-
-
-            
-
-
     }
 }

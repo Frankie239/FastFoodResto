@@ -31,7 +31,6 @@ namespace ModelsTest
             Assert.AreEqual(Expected, helado.Precio);
         }
 
-
         /// <summary>
         /// Se fija que el objeto creado tenga los mismos valores que el esperado
         /// 
@@ -42,17 +41,11 @@ namespace ModelsTest
             //arrange:
             string ExNombre = "McFlurry";
             
-            
-
             //Act:
             ProdHeladeria Actual = new ProdHeladeria("McFlurry", "Helado el vasito", 200, 200, eCategoria.Postre, ESabores.Crema);
 
             //Assert: 
             Assert.AreEqual(ExNombre,Actual.nombre);
-
-            
-
-
         }
 
         [TestMethod]
@@ -69,7 +62,6 @@ namespace ModelsTest
         }
 
         [TestMethod]
-
         public void GetProducto_returns_bebida()
         {
             //Arrange: 
@@ -79,8 +71,7 @@ namespace ModelsTest
             //Assert:
             Assert.AreEqual(Expected.nombre, Actual.nombre);
         }
-
-
+        
         [TestMethod]
         public void GetProducto_returns_hamburguesa()
         {
@@ -91,8 +82,7 @@ namespace ModelsTest
             //Assert:
             Assert.AreEqual(Expected.nombre, Actual.nombre);
         }
-
-
+        
         [TestMethod]
         public void GetProducto_returns_cafe()
         {
@@ -114,19 +104,5 @@ namespace ModelsTest
             //Assert:
             Assert.AreEqual(Expected.nombre, Actual.nombre);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

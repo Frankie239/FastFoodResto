@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace Models
 {
@@ -18,14 +14,6 @@ namespace Models
     
     public class ProdHeladeria : Producto
     {
-
-        //public string nombre;
-
-        //public string descripcion;
-
-        //public double peso;
-
-        //public eCategoria categoria;
         public ESabores Sabor;
 
         public ProdHeladeria(string nombre, string descripcion, double precio, double peso, eCategoria categoria, ESabores sabor) : base(nombre, descripcion, precio, peso, categoria)
@@ -36,7 +24,6 @@ namespace Models
             this.peso = peso;
             this.categoria = categoria;
             this.Sabor = sabor;
-            
         }
 
         public override string PrintDatos()

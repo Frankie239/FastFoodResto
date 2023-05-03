@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 
 
 namespace Models
@@ -19,14 +16,9 @@ namespace Models
     {
         public int id;
         public Cliente client;
-
         public string date;
         private double facturacion;
-
-        //EPayingMethod Pay { set; get; } 
-
-      
-
+        
         public double calcFacturacion()
         {
             double total = 0;
@@ -63,9 +55,6 @@ namespace Models
             sb.AppendLine("Total-----------$" + calcFacturacion().ToString());
 
             sb.AppendLine("** Medio de pago: " + client.Pay.ToString() +" **");
-
-            //To add feature:
-            //sb.AppendLine(comment)
 
             sb.AppendLine("**************FIN DEL PEDIDO**************");
 

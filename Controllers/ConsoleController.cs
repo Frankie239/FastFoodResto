@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Models;
 
 namespace Controllers
@@ -14,7 +13,6 @@ namespace Controllers
         {
             string presionada = "0";
            
-
             while(presionada.ToUpper() != "X")
             {
                 Console.Write("1 Generar Pedido  2 Buscar producto  3 Agregar nuevo producto\n" +
@@ -79,6 +77,7 @@ namespace Controllers
                                         else
                                             Console.WriteLine("Ingrese un nombre de producto");
                                         break;
+                                    
                                     case eCategoria.Hamburguesa:
                                         DesserializarEnMasa(Dummy.Hamburguesas);
                                         name = Console.ReadLine();
@@ -93,8 +92,8 @@ namespace Controllers
                                                 name = Console.ReadLine();
                                                 newPedido.products.Add(Dummy.Hamburguesas.Where(p => p.nombre.ToUpper() == name.ToUpper()).First());
                                             }
-                                           
                                         break;
+                                    
                                     case eCategoria.Pasteleria:
                                         DesserializarEnMasa(Dummy.Pasteleria);
                                         name = Console.ReadLine();
@@ -109,9 +108,6 @@ namespace Controllers
                                                 name = Console.ReadLine();
                                                 newPedido.products.Add(Dummy.Pasteleria.Where(p => p.nombre.ToUpper() == name.ToUpper()).First());
                                             }
-                                        break;
-
-                                    default:
                                         break;
                                 }
                             }
@@ -159,28 +155,6 @@ namespace Controllers
                     case "7":
                         Environment.Exit(0);
                         break;
-
-
-
-
-
-
-
-                            
-
-                            
-
-
-                       
-
-                        
-
-
-
-
-
-
-
                 }
             }
            
@@ -350,9 +324,6 @@ namespace Controllers
                         //ProductosController.AddProducto(toAdd);
                         return toAdd;
                     }
-
-
-                    
                     break;
 
 
@@ -388,7 +359,6 @@ namespace Controllers
                     flavor = (ESabores)selection;
 
                     ProdHeladeria toAddHel = new ProdHeladeria(name, desc, price, weight, auxCategoria, flavor);
-                    //ProductosController.AddProducto(toAddHel);
                     return toAddHel;
                     break;
 
@@ -428,7 +398,6 @@ namespace Controllers
                 //Write each one of the enum elements
                 Console.WriteLine(index.ToString()+"-" + cat.ToString());
                 index++;
-
             }
             int EnumSelection = 0;
             //Get the input from the user
@@ -442,12 +411,9 @@ namespace Controllers
                 EnumSelection = int.Parse(Console.ReadLine());
             }
             
-
             return EnumSelection;
-
         }
-
-
+        
         private static void ShowAllProds()
         {
             DesserializarEnMasa(Dummy.Bebidas);
@@ -456,8 +422,5 @@ namespace Controllers
             DesserializarEnMasa(Dummy.Pasteleria);
 
         }
-
-
-        
     }
 }

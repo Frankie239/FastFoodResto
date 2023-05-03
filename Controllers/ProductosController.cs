@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Models;
 namespace Controllers
 {
@@ -19,12 +17,6 @@ namespace Controllers
     {
 
         public static List<Producto> productos = new List<Producto>();
-        //public static void ImprimirTicket<T>() where T : List<IMostrarDatos>
-        //{
-
-
-
-        //}
 
         /// <summary>
         /// Adds a producto to the list of productos
@@ -34,19 +26,8 @@ namespace Controllers
         /// <param name="prod">the product to add</param>
         public static void AddProducto(Producto prod)
         {
-            //if (ProductoExists(prod.nombre))
-            //{
-            //    throw new ProdAlreadyExistException("The product you are trying to add already exists in this list");
-            //}
-            //else
-            //{
-
-
-            //}
-
             Type type = prod.GetType();
-
-
+            
             switch (type.Name)
             {
                 case "Bebida":
@@ -65,9 +46,8 @@ namespace Controllers
                     Dummy.Pasteleria.Add(prod);
                     break;
             }
-
-
         }
+        
         /// <summary>
         /// Deletes a product from the List
         /// </summary>
@@ -75,16 +55,6 @@ namespace Controllers
         /// <returns>True if has been deleted, False if not</returns>
         public static void DeleteProd(string name, string categoria)
         {
-            //if (ProductoExists(name))
-            //{
-            //    productos.RemoveAll(p => p.nombre == name);
-            //    return true;
-            //}
-            //else
-            //    return false;
-           
-
-
             switch (categoria)
             {
                 case "Bebida":
@@ -154,12 +124,5 @@ namespace Controllers
 
             return null;
         }
-
-        private static bool ProductoExists(string name)
-        {
-           return productos.Any(p => p.nombre == name);
-        }
-
-        
     }
 }

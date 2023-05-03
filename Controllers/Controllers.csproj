@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="ConsoleController.cs" />
     <Compile Include="Dummy.cs" />
-    <Compile Include="PedidosController.cs" />
     <Compile Include="ProductosController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TicketController.cs" />
